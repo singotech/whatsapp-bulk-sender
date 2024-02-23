@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Bulk WhatsApp Sender FREE!</title>
+  <meta property="og:title" content="Bulk WhatsApp Sender FREE! Send WhatsApp Bulk Messages" />
+  <meta charset="UTF-8">
+  <meta name="description" content="Bulk WhatsApp sender - Free tool for bulk sending personalised messages to multiple recipients on WhatsApp without adding contact. Try it today!" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta property="og:description" content="Bulk WhatsApp sender - Free tool for bulk sending personalised messages to multiple recipients on WhatsApp without adding contact. Try it today!" />
+  <meta property="og:image" content="https://s3.ap-southeast-1.amazonaws.com/s3.privyr.com/tools/WhatsApp+Bulk+Sender+Tool.jpg" />
+  <link rel="apple-touch-icon" sizes="180x180" href="https://d1z8p0imlkk5pt.cloudfront.net/static/apple-touch-icon.b1275913eec8.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://d1z8p0imlkk5pt.cloudfront.net/static/favicon-32x32.e17264a46d3a.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://d1z8p0imlkk5pt.cloudfront.net/static/favicon-16x16.0dfd0bdce649.png">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script>
+    (function (w) {
+      "use strict";
+      // rel=preload support test
+      if (!w.loadCSS) {
+        w.loadCSS = function () { };
+      }
+      // define on the loadCSS obj
+      var rp = loadCSS.relpreload = {};
+      // rel=preload feature support test
+      // runs once and returns a function for compat purposes
+      rp.support = (function () {
+        var ret;
+        try {
+          ret = w.document.createElement("link").relList.supports("preload");
+        } catch (e) {
+          ret = false;
+        }
+        return function () {
+          return ret;
+        };
+      })();
+
+      // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+      // then change that media back to its intended value on load
+      rp.bindMediaToggle = function (link) {
+        // remember existing media attr for ultimate state, or default to 'all'
+        var finalMedia = link.media || "all";
+
+        function enableStylesheet() {
+          link.media = finalMedia;
+        }
+
+        // bind load handlers to enable media
+        if (link.addEventListener) {
+          link.addEventListener("load", enableStylesheet);
+        } else if (link.attachEvent) {
+          link.attachEvent("onload", enableStylesheet);
+        }
+
+        // Set rel and non-applicable media type to start an async request
+        // note: timeout allows this to happen async to let rendering continue in IE
+        setTimeout(function () {
+          link.rel = "stylesheet";
+          link.media = "only x";
+        });
+        // also enable media after 3 seconds,
+        // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+        setTimeout(enableStylesheet, 3000);
+      };
+
+      // loop through link elements in DOM
+      rp.poly = function () {
+        // double check this to prevent external calls from running
+        if (rp.support()) {
+          return;
+        }
+        var links = w.document.getElementsByTagName("link");
+        for (var i = 0; i < links.length; i++) {
+          var link = links[i];
+          // qualify links to those with rel=preload and as=style attrs
+          if (link.rel === "preload" && link.getAttribute("as") === "style" && !link.getAttribute("data-loadcss")) {
+            // prevent rerunning on link
+            link.setAttribute("data-loadcss", true);
+            // bind listeners to toggle media back
+            rp.bindMediaToggle(link);
+          }
+        }
+      };
+
+      // if unsupported, run the polyfill
+      if (!rp.support()) {
+        // run once at least
+        rp.poly();
+
+        // rerun poly on an interval until onload
+        var run = w.setInterval(rp.poly, 500);
+        if (w.addEventListener) {
+          w.addEventListener("load", function () {
+            rp.poly();
+            w.clearInterval(run);
+          });
+        } else if (w.attachEvent) {
+          w.attachEvent("onload", function () {
+            rp.poly();
+            w.clearInterval(run);
+          });
+        }
+      }
+
+
+      // commonjs
+      if (typeof exports !== "undefined") {
+        exports.loadCSS = loadCSS;
+      }
+      else {
+        w.loadCSS = loadCSS;
+      }
+    }(typeof global !== "undefined" ? global : this));
+    (function (funcName, baseObj) {
+      // The public function name defaults to window.docReady
+      // but you can pass in your own object and own function name and those will be used
+      // if you want to put them in a different namespace
+      funcName = funcName || "docReady";
+      baseObj = baseObj || window;
+      var readyList = [];
+      var readyFired = false;
+      var readyEventHandlersInstalled = false;
+
+      // call this when the document is ready
+      // this function protects itself against being called more than once
+      function ready() {
+        if (!readyFired) {
+          // this must be set to true before we start calling callbacks
+          readyFired = true;
+          for (var i = 0; i < readyList.length; i++) {
+            // if a callback here happens to add new ready handlers,
+            // the docReady() function will see that it already fired
+            // and will schedule the callback to run right after
+            // this event loop finishes so all handlers will still execute
+            // in order and no new ones will be added to the readyList
+            // while we are processing the list
+            readyList[i].fn.call(window, readyList[i].ctx);
+          }
+          // allow any closures held by these functions to free
+          readyList = [];
+        }
+      }
+
+      function readyStateChange() {
+        if (document.readyState === "complete") {
+          ready();
+        }
+      }
+
+      // This is the one public interface
+      // docReady(fn, context);
+      // the context argument is optional - if present, it will be passed
+      // as an argument to the callback
+      baseObj[funcName] = function (callback, context) {
+        if (typeof callback !== "function") {
+          throw new TypeError("callback for docReady(fn) must be a function");
+        }
+        // if ready has already fired, then just schedule the callback
+        // to fire asynchronously, but right away
+        if (readyFired) {
+          setTimeout(function () { callback(context); }, 1);
+          return;
+        } else {
+          // add the function and context to the list
+          readyList.push({ fn: callback, ctx: context });
+        }
+        // if document already ready to go, schedule the ready function to run
+        if (document.readyState === "complete") {
+          setTimeout(ready, 1);
+        } else if (!readyEventHandlersInstalled) {
+          // otherwise if we don't have event handlers installed, install them
+          if (document.addEventListener) {
+            // first choice is DOMContentLoaded event
+            document.addEventListener("DOMContentLoaded", ready, false);
+            // backup is window load event
+            window.addEventListener("load", ready, false);
+          } else {
+            // must be IE
+            document.attachEvent("onreadystatechange", readyStateChange);
+            window.attachEvent("onload", ready);
+          }
+          readyEventHandlersInstalled = true;
+        }
+      }
+    })("docReady", window);
+  </script>
+
+</head>
+
+<body class="bg-privyr-grey" style="height: 100%">
+
+  <!-- START: MAIN-CONTENT -->
+  <div id="main-content" class="container container-768 px-2 py-3" style="margin-bottom: 70px; margin-top: 3.0em;">
+
+    <div id="screen-2">
+      <h1 class="display-5 font-weight-bold text-center feature-text mb-4 text-uppercase">WhatsApp Bulk Sender
+      </h1>
+      <label class="font-weight-bold" for="">Instructions 📖</label>
+      <p class="mb-4" style="font-size: 1em; line-height: 1.3;">Customise the message template below, paste or
+        enter the names and phone numbers you want to message, then click the SEND button for each recipient.
+      </p>
+
+
+      <div class="form-group mb-4">
+        <label for="defaultMessageTemplateText" class="font-weight-bold">Message Template 💬</label>
+        <textarea class="form-control" id="defaultMessageTemplateText" rows="8">Hi @name! Hope you're having a wonderful week &#128075;
+
+I'm happy to share that the ACME Residences Showflat will be open for viewing next weekend. If you'd like to see it, just let me know and I'll schedule a VIP viewing for you &#128522;
+
+Jane Doe
+Head of Sales, ACME Residences</textarea>
+        <small class="form-text text-muted mx-1">The <strong class="text-privyr-blue">@name</strong> token will
+          be replaced with the contact's name when sending.</small>
+      </div>
+
+      <div class="form-group mb-4">
+        <label for="wa_app" class="font-weight-bold">App 👀</label>
+        <select class="form-control" id="wa_app">
+          <option value="web">Web</option>
+          <option value="desktop_app">Desktop App</option>
+        </select>
+      </div>
+
+
+
+      <label class="font-weight-bold" for="">Recipients
+        👥</label>
+      <p class="mb-4" style="font-size: 1.em; line-height: 1.3;">Enter the name and phone number of each recipient
+        below, or <a href="#" data-toggle="modal" data-target="#modal-pasteContactsCSV"
+          class="text-info font-weight-bold">paste contacts</a> to populate their details all at once.</p>
+
+      <div class="form-row">
+        <div class="col-5 col-sm-5">
+          <label for="clientName">Name</label>
+        </div>
+        <div class="col-4 col-sm-4">
+          <label for="clientPhone">Phone Number</label>
+        </div>
+        <div class="col-3 col-sm-3">
+          <label for="clientWhatsApp">WhatsApp</label>
+        </div>
+      </div>
+
+      <div id="contact-rows-container" s>
+        <div class="form-row mb-2">
+          <div class="col-5 col-sm-5">
+            <input id="clientName_1" type="text" class="form-control" placeholder="Name 1"
+              onchange="checkClientValid(1)">
+          </div>
+          <div class="col-4 col-sm-4">
+            <input id="clientPhone_1" type="tel" class="form-control" placeholder="Phone #" value=""
+              onchange="checkClientValid(1)">
+          </div>
+          <div class="col-3 col-sm-3">
+            <button id="whatsappClientBtn_1" onclick="sendWhatsappToClient(1)"
+              class="btn btn-block btn-secondary">
+              <i class="fab fa-whatsapp mr-1"></i>
+              SEND
+            </button>
+          </div>
+        </div>
+        <div class="form-row mb-2">
+          <div class="col-5 col-sm-5">
+            <input id="clientName_2" type="text" class="form-control" placeholder="Name 2"
+              onchange="checkClientValid(2)">
+          </div>
+          <div class="col-4 col-sm-4">
+            <input id="clientPhone_2" type="tel" class="form-control" placeholder="Phone #" value=""
+              onchange="checkClientValid(2)">
+          </div>
+          <div class="col-3 col-sm-3">
+            <button id="whatsappClientBtn_2" onclick="sendWhatsappToClient(2)"
+              class="btn btn-block btn-secondary">
+              <i class="fab fa-whatsapp mr-1"></i>
+              SEND
+            </button>
+          </div>
+        </div>
+        <div class="form-row mb-2">
+          <div class="col-5 col-sm-5">
+            <input id="clientName_3" type="text" class="form-control" placeholder="Name 3"
+              onchange="checkClientValid(3)">
+          </div>
+          <div class="col-4 col-sm-4">
+            <input id="clientPhone_3" type="tel" class="form-control" placeholder="Phone #" value=""
+              onchange="checkClientValid(3)">
+          </div>
+          <div class="col-3 col-sm-3">
+            <button id="whatsappClientBtn_3" onclick="sendWhatsappToClient(3)"
+              class="btn btn-block btn-secondary">
+              <i class="fab fa-whatsapp mr-1"></i>
+              SEND
+            </button>
+          </div>
+        </div>
+        <div class="form-row mb-2">
+          <div class="col-5 col-sm-5">
+            <input id="clientName_4" type="text" class="form-control" placeholder="Name 4"
+              onchange="checkClientValid(4)">
+          </div>
+          <div class="col-4 col-sm-4">
+            <input id="clientPhone_4" type="tel" class="form-control" placeholder="Phone #" value=""
+              onchange="checkClientValid(4)">
+          </div>
+          <div class="col-3 col-sm-3">
+            <button id="whatsappClientBtn_4" onclick="sendWhatsappToClient(4)"
+              class="btn btn-block btn-secondary">
+              <i class="fab fa-whatsapp mr-1"></i>
+              SEND
+            </button>
+          </div>
+        </div>
+        <div class="form-row mb-2">
+          <div class="col-5 col-sm-5">
+            <input id="clientName_5" type="text" class="form-control" placeholder="Name 5"
+              onchange="checkClientValid(5)">
+          </div>
+          <div class="col-4 col-sm-4">
+            <input id="clientPhone_5" type="tel" class="form-control" placeholder="Phone #" value=""
+              onchange="checkClientValid(5)">
+          </div>
+          <div class="col-3 col-sm-3">
+            <button id="whatsappClientBtn_5" onclick="sendWhatsappToClient(5)"
+              class="btn btn-block btn-secondary">
+              <i class="fab fa-whatsapp mr-1"></i>
+              SEND
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row mb-2">
+        <div class="col-5 col-sm-5">
+          <a href="javascript:addFiveMoreRows();" class="text-info ml-1">+ Add 5 more rows</a>
+        </div>
+        <div class="col-4 col-sm-4">
+          <a href="#" class="text-info ml-1" data-toggle="modal" data-target="#modal-pasteContactsCSV"><i
+              class="far fa-edit mr-1"></i> Bulk Edit Contacts</a>
+        </div>
+      </div>
+
+
+      <!-- START: IMPORT FROM CSV MODAL (COPY & PASTE) -->
+      <div class="modal fade" id="modal-pasteContactsCSV" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-body" style="background-color: #f8f9fa;">
+
+              <label for="defaultMessageTemplateText" class="">Paste Contacts as CSV</label>
+              <p class="mb-1">Paste or type a comma-separated list contacts (one per row) in the format
+                of: <strong class="text-privyr-blue">name</strong>, <strong
+                  class="text-privyr-blue">phone</strong>.</p>
+
+              <textarea class="form-control mt-2" id="contactsFromCSV"
+                placeholder="Tony,+155512345678&#10;Pepper,+6512345678" rows="6">
+Tony,6593888455
+Pepper,6599278822
+Bruce,919984909812</textarea>
+              <small class="form-text text-muted mt-2">For the best results, include the country code at
+                the start of the phone number (e.g. +6591234567).</small>
+
+              <div class="text-right mt-3">
+                <button type="button" class="btn btn-outline-secondary mr-2"
+                  data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-info" onclick="convertContactsFromCSV()">Populate
+                  Contacts</button>
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END: IMPORT FROM CSV MODAL -->
+    </div>
+
+    <script>
+      function checkClientValid(clientID) {
+
+        var clientName = $("#clientName_" + clientID).val();
+        var clientPhone = $("#clientPhone_" + clientID).val();
+        var clientButton = $("#whatsappClientBtn_" + clientID);
+
+
+        // if the client's name & number is valid, activate the button
+        if (clientName && clientPhone) {
+          $(clientButton).removeClass("btn-secondary").addClass("btn-info");
+
+          // else deactivate the button
+        } else {
+          $(clientButton).addClass("btn-secondary").removeClass("btn-info");
+        }
+      }
+
+      function convertContactsFromCSV() {
+
+        var contactsArray = $('#contactsFromCSV').val().split('\n');
+        var contactRowArray = [];
+        var contactIndex = 1; // The form indexing starts at 1 as opposed to zero
+
+        setBlankContactRowsUI(contactsArray.length);
+
+        contactsArray.forEach(function (contactRow) {
+
+          //      alert("Contact "+contactIndex+": "+contactRow);
+          contactRowArray = contactRow.split(',');
+          $("#clientName_" + contactIndex).val(contactRowArray[0].trim());
+          $("#clientPhone_" + contactIndex).val(contactRowArray[1].trim());
+          checkClientValid(contactIndex);
+
+          contactIndex++;
+        });
+
+        // hide the modal
+        $('#modal-pasteContactsCSV').modal('hide')
+      }
+
+      function sendWhatsappToClient(clientID) {
+
+        var clientName = $("#clientName_" + clientID).val();
+        var clientPhone = $("#clientPhone_" + clientID).val();
+        //    var myName = $("#myName").val();
+
+        // make sure the client has a name and phone number
+        if (!clientName || !clientPhone) {
+          alert("Please enter both a name and phone number");
+          return;
+        }
+
+        // get the default message, and replace @name with the client's name...
+        var messageToSend = $("#defaultMessageTemplateText").val().replace(/@name/g, clientName);
+
+        // trigger the whatsapp message to the phone number with the message
+        //window.location.href="whatsapp://send?phone="+clientPhone+"&text="+encodeURIComponent(messageToSend);
+        var app = document.getElementById('wa_app').value;
+        if (app == 'web') {
+          window.open("https://web.whatsapp.com/send/?phone=" + clientPhone + "&text=" + encodeURIComponent(messageToSend), "_blank");
+        } else {
+          window.open("https://api.whatsapp.com/send/?phone=" + clientPhone + "&text=" + encodeURIComponent(messageToSend), "_blank");
+        }
+
+        // alert("whatsapp://send?phone="+clientPhone+"&text="+encodeURI(messageToSend));
+      }
+
+      function setBeforeUnload() {
+        window.addEventListener("beforeunload", (e) => {
+          e.preventDefault();
+          var message = "Your unsaved changes will be lost";
+          e.returnValue = message;
+          return message;
+        });
+      }
+
+      function addFiveMoreRows() {
+        setBlankContactRowsUI(getContactListCount() + 5)
+      }
+
+      function setBlankContactRowsUI(formLength) {
+        var currRows = getContactListCount();
+        var rowsTobeAdded = formLength - getContactListCount();
+        if (rowsTobeAdded < 0) {
+          console.log("Invalid operation. Cannot remove rows");
+          return;
+        }
+        var containerRows = $("#contact-rows-container");
+
+        for (var i = 1; i <= rowsTobeAdded; i++) {
+          containerRows.append(buildContactRowHTML(i + currRows))
+        }
+
+
+      }
+
+      function buildContactRowHTML(index) {
+
+        return `<div class="form-row mb-2">
+    <div class="col-5 col-sm-5">
+      <input id="clientName_${index}" type="text" class="form-control" placeholder="Name ${index}" onchange="checkClientValid(${index})">
+    </div>
+    <div class="col-4 col-sm-4">
+      <input id="clientPhone_${index}" type="tel" class="form-control" placeholder="Phone #" value="" onchange="checkClientValid(${index})">
+    </div>
+    <div class="col-3 col-sm-3">
+      <button id="whatsappClientBtn_${index}" onclick="sendWhatsappToClient(${index})" class="btn btn-block btn-secondary">
+        <i class="fab fa-whatsapp mr-1"></i>
+        SEND
+      </button>
+    </div>
+  </div>`
+      }
+
+      function getContactListCount() {
+        return $("#contact-rows-container")[0].childElementCount;
+      }
+    </script>
+
+  </div>
+  <p class="text-center mb-4 text-secondary feature-text-sm mt-4">© Singotech x <a href="https://www.privyr.com/tools/whatsapp-bulk-sender">Team Privyr</a></p>
+  <!-- END: MAIN-CONTENT -->
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+  <script>
+    (function ($) {
+      $.postRequest = function (url, data, csrfToken, callback, type, httpMethod) {
+        // Old versions for safari do not allow default declration in signature. Using this method for that
+        if (type === undefined) {
+          type = "JSON";
+        }
+        if (httpMethod === undefined) {
+          httpMethod = "POST";
+        }
+        function csrfSafeMethod(method) {
+          // these HTTP methods do not require CSRF protection
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        // shift arguments if data argument was omitted
+        if ($.isFunction(data)) {
+          type = type || callback;
+          callback = data;
+          data = undefined;
+        }
+        return $.ajax(jQuery.extend({
+          url: url,
+          type: httpMethod,
+          dataType: type,
+          data: JSON.stringify(data),
+          success: callback,
+          contentType: "application/json",
+          beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrfToken);
+            }
+          }
+        }, jQuery.isPlainObject(url) && url));
+      };
+      $.postCSRF = function (url, data, callback, type) {
+        function csrfSafeMethod(method) {
+          // these HTTP methods do not require CSRF protection
+          return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        function getCookie(name) {
+          var cookieValue = null;
+          if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+              var cookie = jQuery.trim(cookies[i]);
+              // Does this cookie string begin with the name we want?
+              if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+              }
+            }
+          }
+          return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+        // shift arguments if data argument was omitted
+        if ($.isFunction(data)) {
+          type = type || callback;
+          callback = data;
+          data = undefined;
+        }
+        return $.ajax(jQuery.extend({
+          url: url,
+          type: "POST",
+          dataType: type,
+          data: data,
+          success: callback,
+          beforeSend: function (xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+              xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+          }
+        }, jQuery.isPlainObject(url) && url));
+      };
+    }(jQuery));
+  </script>
+
+</body>
+
+</html>
