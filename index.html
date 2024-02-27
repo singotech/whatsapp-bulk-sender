@@ -433,6 +433,12 @@ Bruce,919984909812</textarea>
           return;
         }
 
+        // Change button color to red
+        var button = document.getElementById('whatsappClientBtn_' + clientID);
+        if (button) {
+          button.style.backgroundColor = 'red';
+        }
+
         // get the default message, and replace @name with the client's name...
         var messageToSend = $("#defaultMessageTemplateText").val().replace(/@name/g, clientName);
 
